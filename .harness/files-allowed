@@ -1,12 +1,50 @@
-# In-scope files for the current task.
+# In-scope files for PHASE-2 scaffold.
 # Stop hook blocks edits to anything not matching a pattern here.
 # Glob patterns: exact, prefix/**, prefix/*, fnmatch.
 
-# Replace with task-relevant scope before kicking off.
-src/**
+# --- agentdex source (the product) ---
+agentdex/**
 tests/**
 
-# Harness scratch (agent may write here)
+# --- new PHASE-2 module tree ---
+agentdex/modules/**
+tests/modules/**
+
+# --- docs (ADRs + architecture + features) ---
+docs/adr/**
+docs/architecture.md
+docs/bench/**
+features/**
+
+# --- project metadata ---
+pyproject.toml
+README.md
+CLAUDE.md
+
+# --- ops scripts owned by us ---
+scripts/loop_driver.sh
+scripts/heartbeat_snap.sh
+scripts/bench_coach_swarm.py
+
+# --- mailbox + STAGE (orchestration state) ---
+.orchestra/mailbox/**
+.orchestra/STAGE
+.orchestra/README.md
+
+# --- harness scratch (agent may write here) ---
 .harness/disclosure.md
 .harness/plan.md
 .harness/notes.md
+
+# --- explicitly OUT OF SCOPE (do NOT match here) ---
+# .claude/**          — upstream ionq-hooks-owned, regenerate via cookiecutter
+# .cursor/**          — same
+# .harness/spec.md    — set by operator at start of task, agent does not rewrite
+# .harness/REWARD_HACK_PROTOCOL.md — upstream protocol doc
+# .harness/files-allowed — meta-file, only operator edits
+# hooks/_ionq_hooks/** — upstream Python source
+# reporters/**         — upstream pytest plugin
+# install.sh           — upstream cookiecutter-generated
+# CURSOR_GAPS.md       — upstream doc
+# LICENSE              — legal, no edits
+# .github/workflows/** — CI; gate via disclosure if needed
