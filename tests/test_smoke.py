@@ -46,5 +46,5 @@ async def test_hub_fanout_uses_single_spec(monkeypatch: pytest.MonkeyPatch) -> N
     results = await hub.run(tasks)
 
     assert fetch_count["n"] == 1, "hub must fetch spec exactly once across N leaves"
-    assert results["endpoints"] == 3
-    assert results["schemas"] == ["Bar", "Foo"]
+    assert results["endpoints"].ok and results["endpoints"].value == 3
+    assert results["schemas"].ok and results["schemas"].value == ["Bar", "Foo"]

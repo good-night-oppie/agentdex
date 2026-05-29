@@ -15,6 +15,9 @@ dependencies = [
     "python-dotenv>=1.0",
 ]
 
+[project.scripts]
+meta-vex = "meta_vex.swarm.cli:main"
+
 [project.optional-dependencies]
 dev = [
     "pytest>=8.3",

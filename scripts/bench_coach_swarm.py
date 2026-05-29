@@ -37,7 +37,8 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from meta_vex.coach import CoachCache  # noqa: E402
 
-MCP_BIN = os.environ.get("MCP_COACH_BIN", str(Path.home() / ".npm-global" / "bin" / "mcp-coach-server"))
+_DEFAULT_MCP_BIN = str(Path.home() / ".npm-global" / "bin" / "mcp-coach-server")
+MCP_BIN = os.environ.get("MCP_COACH_BIN", _DEFAULT_MCP_BIN)
 MCP_DISK_CACHE = Path.home() / ".ai-builders-mcp-cache"
 COACH_BASE_URL = os.environ.get("COACH_BASE_URL", "https://space.ai-builders.com/backend")
 
@@ -80,8 +81,12 @@ async def call_mcp_get_spec() -> tuple[float, int]:
         )
         assert proc.stdin and proc.stdout
         try:
-            send = lambda m: (proc.stdin.write(json.dumps(m) + "\n"), proc.stdin.flush())  # noqa: E731
-            recv = lambda: json.loads(proc.stdout.readline())
+            def send(m: dict) -> None:
+                proc.stdin.write(json.dumps(m) + "\n")
+                proc.stdin.flush()
+
+            def recv() -> dict:
+                return json.loads(proc.stdout.readline())
 
             send({
                 "jsonrpc": "2.0", "id": 1, "method": "initialize",
@@ -188,11 +193,11 @@ async def main() -> int:
         if cold:
             clear_mcp_disk_cache()
             clear_hub_cache(hub_cache_dir)
-            print(f"--- COLD pass (caches cleared) ---")
+            print("--- COLD pass (caches cleared) ---")
         else:
-            print(f"--- WARM pass (caches retained) ---")
+            print("--- WARM pass (caches retained) ---")
 
-        for mode_fn, name in [(mode_naive, "naive"), (mode_hubcache, "hubcache")]:
+        for name in ("naive", "hubcache"):
             if name == "naive":
                 r = await mode_naive(args.leaves)
             else:
