@@ -110,3 +110,27 @@ repo-neutral so a single sync overwrite reads correctly from any repo.
 - Reverse op: `git revert` this commit + revert any subsequent re-sync
 
 **Owner:** etang via operator turn 2026-05-31 ~11:22 PDT.
+
+### scope: 2026-05-31 — add HANDOFF_FROM_IONQ.md (session arc + state-of-play)
+
+**Date:** 2026-05-31 ~11:25 PDT
+**Active spec:** PHASE-2 battle engine MVP.
+**Plan reference:** matches the `HANDOFF_FROM_IONQ.md` precedent set in
+~/gh/helios; explicit operator request "Write down handoff note for
+Agentdex" 2026-05-31 ~11:25 PDT.
+
+**Files outside `.harness/files-allowed` added:**
+- `HANDOFF_FROM_IONQ.md` — session arc summary: hook sync work (Path B,
+  canonical _agentdex_hooks, sync-hooks.sh, repo-neutral content), 4-repo
+  architecture memory, tech stack direction (langfuse + bene-postgres-or-
+  supabase + ai-coach-MCP for fast-path), ARC marquee + situation finding
+  artifacts, next-steps for agentdex MVP work.
+
+**Authorization:** explicit operator turn 2026-05-31 ~11:25 PDT.
+
+**Why this is not silent reward hacking:**
+- Documentation-only addition; no detector logic / scope rule / verifier
+  surface / test behavior change
+- Reverse op: `rm HANDOFF_FROM_IONQ.md`
+
+**Owner:** etang via operator turn 2026-05-31 ~11:25 PDT.
