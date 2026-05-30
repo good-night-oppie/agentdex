@@ -58,3 +58,30 @@ authorized scope-creep for this one-off rename pass. files-allowed
 itself is NOT modified by this disclosure entry (operator-only meta-file).
 
 **Owner:** etang via operator turn 2026-05-31 ~10:14-10:21 PDT.
+
+### scope: 2026-05-31 — add scripts/sync-hooks.sh (canonical → downstream propagator)
+
+**Date:** 2026-05-31 ~10:32 PDT
+**Active spec:** PHASE-2 battle engine MVP (`.harness/spec.md`).
+**Plan reference:** companion to the earlier `### scope:` rename entry.
+Sync script implements path B's "canonical → downstream" propagation
+direction.
+
+**Files outside `.harness/files-allowed` added:**
+- `scripts/sync-hooks.sh` — 130 LOC bash. Copies agentdex's
+  `_agentdex_hooks/` + `.claude/{settings.json,hooks,agents}` to peer
+  repos (bene/helios/oppie) with sed-rewrite of `_agentdex_hooks` →
+  `_<repo>_hooks` and `AGENTDEX_HOOKS_BASE_REF` → `<REPO>_HOOKS_BASE_REF`.
+  Includes `--dry-run` and per-target skip if `.git` or `.harness`
+  missing (idempotent / safe for missing targets).
+
+**Authorization:** explicit operator turn 2026-05-31 ~10:14 PDT
+("跑全部 hook sync" includes writing the sync script).
+
+**Why this is not silent reward hacking:**
+- Pure tooling addition (script never invoked automatically; runs only
+  when operator explicitly executes it)
+- No spec bypass / fixture mod / verifier surface edit
+- Reverse op: `rm scripts/sync-hooks.sh`
+
+**Owner:** etang via operator turn 2026-05-31 ~10:14 PDT.
